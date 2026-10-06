@@ -13,7 +13,7 @@ import ru.library.service.BookService;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping(value = "/api/books", produces = "application/json")
 @RequiredArgsConstructor
 @Tag(name = "Книги")
 public class BookController {
@@ -36,6 +36,7 @@ public class BookController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Создать запись", description = "Только ADMIN")
     public ResponseEntity<BookResponse> create(@Valid @RequestBody BookRequest request) {

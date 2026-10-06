@@ -13,7 +13,7 @@ import ru.library.service.AuthorService;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/authors")
+@RequestMapping(value = "/api/authors", produces = "application/json")
 @RequiredArgsConstructor
 @Tag(name = "Авторы")
 public class AuthorController {
@@ -35,6 +35,7 @@ public class AuthorController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Создать запись", description = "Только ADMIN")
     public ResponseEntity<NamedResponse> create(@Valid @RequestBody AuthorRequest request) {

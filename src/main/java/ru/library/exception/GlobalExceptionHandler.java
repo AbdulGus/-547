@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.*;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import java.time.Instant;
 import java.util.*;
 
@@ -65,6 +67,16 @@ public class GlobalExceptionHandler {
         return response(HttpStatus.METHOD_NOT_ALLOWED, "Метод не поддерживается", request, Map.of());
     }
 
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> unsupportedMedia(Exception e, HttpServletRequest request) {
+        return response(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "Используйте Content-Type: application/json", request, Map.of());
+    }
+
+    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+    public ResponseEntity<ErrorResponse> unacceptableMedia(Exception e, HttpServletRequest request) {
+        return response(HttpStatus.NOT_ACCEPTABLE, "Ответ доступен в формате application/json", request, Map.of());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> unexpected(Exception e, HttpServletRequest request) {
         log.error("Request failed: {}", request.getRequestURI(), e);
@@ -73,7 +85,7 @@ public class GlobalExceptionHandler {
 
     private ResponseEntity<ErrorResponse> response(HttpStatus status, String message,
             HttpServletRequest request, Map<String, String> errors) {
-        return ResponseEntity.status(status).body(new ErrorResponse(Instant.now(), status.value(),
+        return ResponseEntity.status(status).contentType(MediaType.APPLICATION_JSON).body(new ErrorResponse(Instant.now(), status.value(),
             message, request.getRequestURI(), errors));
     }
 }

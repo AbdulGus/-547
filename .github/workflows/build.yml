@@ -10,11 +10,17 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+      - run: node --check src/main/resources/static/app.js
       - run: mvn -B clean verify
       - uses: actions/upload-artifact@v4
         with:
           name: library-jar
           path: target/library-1.0.0.jar
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-reports
+          path: target/surefire-reports/
   postgres:
     runs-on: ubuntu-latest
     services:

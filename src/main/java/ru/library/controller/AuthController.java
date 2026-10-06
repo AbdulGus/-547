@@ -13,7 +13,7 @@ import ru.library.dto.*;
 import ru.library.service.AuthService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(value = "/api/auth", produces = "application/json")
 @RequiredArgsConstructor
 @Tag(name = "Авторизация")
 public class AuthController {

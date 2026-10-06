@@ -13,7 +13,7 @@ import ru.library.service.CategoryService;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping(value = "/api/categories", produces = "application/json")
 @RequiredArgsConstructor
 @Tag(name = "Категории")
 public class CategoryController {
@@ -35,6 +35,7 @@ public class CategoryController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Создать запись", description = "Только ADMIN")
     public ResponseEntity<NamedResponse> create(@Valid @RequestBody CategoryRequest request) {
