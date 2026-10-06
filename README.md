@@ -6,7 +6,7 @@
 
 ## Стек
 
-Java 21, Spring Boot 4.0.8, Spring Web MVC, Spring Data JPA, Spring Security, PostgreSQL 17, Flyway, JWT, springdoc-openapi 3.0.1. Интерфейс — HTML, CSS и JavaScript без отдельного сервера и сборки. Тесты — JUnit 5, Mockito, MockMvc, H2.
+Java 21, Spring Boot 3.5.16, Spring Web MVC, Spring Data JPA, Spring Security, PostgreSQL 17, Flyway, JWT, springdoc-openapi 2.8.17. Интерфейс — HTML, CSS и JavaScript без отдельного сервера и сборки. Тесты — JUnit 5, Mockito, MockMvc, H2.
 
 ## Запуск через Docker
 
