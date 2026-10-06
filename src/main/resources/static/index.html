@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Библиотека — каталог книг</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/app.js" defer></script>
+</head>
+<body>
+<header><a class="brand" href="/">Б<span>·</span> Библиотека</a><a href="/swagger-ui.html" target="_blank" rel="noreferrer">API ↗</a></header>
+<main>
+    <section id="auth-view" class="auth-layout">
+        <div class="intro"><span class="eyebrow">ЭЛЕКТРОННЫЙ КАТАЛОГ</span><h1>Хорошие книги.<br>В одном месте.</h1><p>Находите книги, знакомьтесь с авторами и собирайте каталог своей библиотеки.</p><div class="book-art" aria-hidden="true"><span>РАССКАЗЫ</span><span>КЛАССИКА</span><span>РОМАНЫ</span></div></div>
+        <section class="auth-card"><div class="auth-tabs"><button type="button" id="login-tab" class="active">Вход</button><button type="button" id="register-tab">Регистрация</button></div><h2 id="auth-title">С возвращением</h2><p id="auth-caption" class="muted">Войдите, чтобы открыть каталог.</p>
+            <form id="auth-form"><label>Email<input id="email" type="email" maxlength="254" autocomplete="username" required placeholder="reader@example.com"></label><label>Пароль<input id="password" type="password" maxlength="64" autocomplete="current-password" required placeholder="Ваш пароль"></label><p id="auth-error" class="error" role="alert"></p><button class="primary" id="auth-submit">Войти</button></form>
+            <p class="small muted">Новые пользователи получают доступ читателя.</p>
+        </section>
+    </section>
+    <section id="catalog-view" hidden>
+        <div class="account"><span id="account"></span><button id="logout" class="quiet">Выйти</button></div>
+        <div class="heading"><div><span class="eyebrow">МОЯ БИБЛИОТЕКА</span><h1>Каталог</h1><p class="muted">Книги, к которым хочется вернуться.</p></div><button id="add" class="primary" hidden>+ Добавить</button></div>
+        <div class="toolbar"><nav aria-label="Разделы каталога"><button data-section="books" class="active">Книги</button><button data-section="authors">Авторы</button><button data-section="categories">Категории</button></nav><form id="search-form"><input id="search" aria-label="Поиск книги" placeholder="Название книги"><button class="quiet">Найти</button></form></div>
+        <p id="notice" role="status"></p><div id="list" class="grid" aria-live="polite"></div>
+        <div class="pagination"><span id="total" class="muted"></span><div><button id="prev" class="quiet">← Назад</button><span id="page-label"></span><button id="next" class="quiet">Вперёд →</button></div></div>
+    </section>
+</main>
+<footer>Библиотека · Учебный проект на Spring Boot</footer>
+<dialog id="editor"><form id="edit-form"><div class="dialog-heading"><h2 id="edit-title">Новая запись</h2><button type="button" id="close-editor" class="quiet" aria-label="Закрыть">✕</button></div><div id="fields"></div><p id="edit-error" class="error" role="alert"></p><button id="save" class="primary">Сохранить</button></form></dialog>
+</body>
+</html>

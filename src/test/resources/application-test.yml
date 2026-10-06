@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:library;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    properties:
+      hibernate:
+        generate_statistics: true
+app:
+  jwt:
+    secret: test-library-secret-key-with-at-least-32-bytes
+  admin:
+    email:
+    password:
