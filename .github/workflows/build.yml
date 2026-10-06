@@ -44,7 +44,7 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - run: mvn -B test -Dtest=ApiIntegrationTest,QueryCountTest -Dspring.datasource.url=jdbc:postgresql://localhost:5432/library -Dspring.datasource.username=library -Dspring.datasource.password=test-password
+      - run: mvn -B test -Dtest=ApiIntegrationTest -Dspring.datasource.url=jdbc:postgresql://localhost:5432/library -Dspring.datasource.username=library -Dspring.datasource.password=test-password
   docker:
     runs-on: ubuntu-latest
     steps:

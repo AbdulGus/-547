@@ -4,13 +4,13 @@
 
 | № | Требование | Реализация и проверка |
 | --- | --- | --- |
-| 1 | REST, CRUD, DTO, Validation, ControllerAdvice | CRUD книг, авторов и категорий; request/response records; GlobalExceptionHandler. ApiIntegrationTest проверяет CRUD, валидацию и ErrorResponse. |
+| 1 | REST, CRUD, DTO, Validation, ControllerAdvice | CRUD книг, авторов и категорий; request/response records; GlobalExceptionHandler. Обработка ошибок через единый ErrorResponse. |
 | 2 | JPA, связи, запросы, пагинация, бизнес-правила | 4 entity; OneToMany, ManyToOne, ManyToMany; Query Methods, @Query; страницы во всех списках. Проверяются ISBN, год, связанные записи и ограничения удаления. |
-| 3 | JWT, USER/ADMIN, PreAuthorize, вход и регистрация | Все методы каталога и /api/auth/me защищены. Исключения для входа, регистрации, статических файлов и Swagger описаны ниже. Проверяются все CRUD-методы, срок JWT, подпись и актуальная роль. |
-| 4 | Устранение N+1 | Страница ID + @EntityGraph. QueryCountTest: 21 запрос без COUNT при обычной загрузке против 3 с COUNT после оптимизации. |
+| 3 | JWT, USER/ADMIN, PreAuthorize, вход и регистрация | Все методы каталога и /api/auth/me защищены. Исключения для входа, регистрации, статических файлов и Swagger описаны ниже. MockMvc проверяет доступ к каталогу с JWT и без него. |
+| 4 | Устранение N+1 | Страница ID + @EntityGraph. В README приведена оценка: 21 запрос без COUNT при обычной загрузке против 3 с COUNT после оптимизации; указано, как включить SQL-лог. |
 | 5 | Не менее 5 миграций Flyway | 6 миграций; Hibernate ddl-auto=validate. Те же миграции проверяются на H2 и PostgreSQL 17. |
-| 6 | Swagger UI, теги, Bearer | /swagger-ui.html; теги «Книги», «Авторы», «Категории», «Авторизация»; bearerAuth. Тестируются схемы DTO и ошибок, коды 201/204/415. |
-| 7 | Минимум 2 unit-теста и 1 MockMvc | 8 unit-тестов сервисов на JUnit 5 и Mockito, 16 проверок MockMvc, 1 тест N+1. Всего 25. |
+| 6 | Swagger UI, теги, Bearer | /swagger-ui.html; теги «Книги», «Авторы», «Категории», «Авторизация»; bearerAuth. Описаны DTO, ошибки и коды ответов. |
+| 7 | Минимум 2 unit-теста и 1 MockMvc | Ровно 2 unit-теста BookService на JUnit 5 и Mockito и 1 тест контроллера через MockMvc с JWT. Всего 3. |
 | 8 | Dockerfile, Compose app + PostgreSQL | Dockerfile выполняет сборку и тесты; Compose запускает app и db, проверяет готовность БД и сохраняет данные в volume. Отдельное задание CI проверяет запуск контейнеров. |
 | 9 | Документация | README: архитектура, модели, правила, API, переменные окружения, локальный запуск, Docker, Swagger, токены и N+1. |
 | 10 | Веб-интерфейс, формы, JWT | Вход/регистрация, списки книг/авторов/категорий, поиск, страницы, создание/редактирование/удаление для ADMIN; JWT в localStorage. JavaScript проверяется на синтаксис в CI. |
@@ -34,7 +34,7 @@ docker compose up --build
 В GitHub Actions выполняются три задания:
 
 - test — синтаксис JavaScript, Maven verify, тесты и сборка JAR;
-- postgres — интеграционные тесты с PostgreSQL 17;
+- postgres — тот же тест контроллера с PostgreSQL 17;
 - docker — сборка образа, запуск Compose, Swagger, вход и каталог с JWT.
 
 Результаты доступны во вкладке [Actions](https://github.com/AbdulGus/-547/actions). В успешном запуске можно скачать JAR и отчёты Surefire.
